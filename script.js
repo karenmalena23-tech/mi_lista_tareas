@@ -12,7 +12,9 @@ function updateCounter() {
     let completed = 0;
 
     tasks.forEach(function (task) {
-        if (task.classList.contains("completed")) {
+        const taskTextElement = task.querySelector("span");
+
+        if (taskTextElement.classList.contains("completed")) {
             completed++;
         } else {
             pending++;
