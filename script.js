@@ -2,6 +2,27 @@ const taskInput = document.getElementById("taskInput");
 const addButton = document.getElementById("addButton");
 const taskList = document.getElementById("taskList");
 
+const pendingCount = document.getElementById("pendingCount");
+const completedCount = document.getElementById("completedCount");
+
+function updateCounter() {
+    const tasks = taskList.querySelectorAll("li");
+
+    let pending = 0;
+    let completed = 0;
+
+    tasks.forEach(function (task) {
+        if (task.classList.contains("completed")) {
+            completed++;
+        } else {
+            pending++;
+        }
+    });
+
+    pendingCount.textContent = pending;
+    completedCount.textContent = completed;
+}
+
 addButton.addEventListener("click", function () {
     const taskText = taskInput.value.trim();
 
@@ -17,6 +38,7 @@ addButton.addEventListener("click", function () {
 
     taskTextElement.addEventListener("click", function () {
         taskTextElement.classList.toggle("completed");
+        updateCounter();
     });
 
     const deleteButton = document.createElement("button");
@@ -24,6 +46,7 @@ addButton.addEventListener("click", function () {
 
     deleteButton.addEventListener("click", function () {
         task.remove();
+        updateCounter();
     });
 
     task.appendChild(taskTextElement);
@@ -32,4 +55,6 @@ addButton.addEventListener("click", function () {
     taskList.appendChild(task);
 
     taskInput.value = "";
+
+    updateCounter();
 });
